@@ -20,7 +20,7 @@
     <name>spring-boot-angular-jenkins</name>
     <description>Demo project for Spring Boot</description>
 
-    <url>https://nexus.qugenx.com/</url>
+    <!--<url>https://nexus.qugenx.com/</url>-->
     <properties>
         <java.version>1.8</java.version>
 
@@ -46,7 +46,7 @@
         <url>https://jenkins.qugenx.com</url>
     </ciManagement>
 
-    <distributionManagement>
+    <!--<distributionManagement>
         <repository>
             <id>releases</id>
             <name>Nexus Releases</name>
@@ -57,7 +57,7 @@
             <name>Nexus Snapshots</name>
             <url>https://nexus.qugenx.com/repository/snapshots/</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement>-->
 
     <dependencies>
         <dependency>
