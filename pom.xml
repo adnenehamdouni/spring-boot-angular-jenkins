@@ -125,4 +125,42 @@
 
     </build>
 
+    <profiles>
+        <profile>
+            <id>dev-fake-db</id>
+            <properties>
+                <spring.profiles.active>fake</spring.profiles.active>
+                <script.extension>npm.cmd</script.extension>
+                <web.build.mode>dev</web.build.mode>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev-real-db</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+                <script.extension>npm.cmd</script.extension>
+                <web.build.mode>dev</web.build.mode>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+                <script.extension>npm.cmd</script.extension>
+                <web.build.mode>prod</web.build.mode>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <spring.profiles.active>qa</spring.profiles.active>
+                <script.extension>npm.cmd</script.extension>
+                <web.build.mode>qa</web.build.mode>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

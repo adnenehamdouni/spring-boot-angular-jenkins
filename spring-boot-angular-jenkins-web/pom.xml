@@ -16,84 +16,75 @@
     <build>
         <plugins>
 
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.6</version>
+
+
+          <!-- -->
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.5.3</version>
+            <configuration>
+              <descriptor>packaging.xml</descriptor>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+            <executions>
+              <execution>
+                <id>create-archive</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.5.0</version>
+            <executions>
+              <execution>
+                <id>exec-npm-install</id>
+                <phase>generate-sources</phase>
                 <configuration>
-                    <workingDirectory>dist/node</workingDirectory>
-                    <!-- where to install npm -->
-                    <installDirectory>dist/node</installDirectory>
+                  <executable>dist/node/node/${script.extension}</executable>
+                  <arguments>
+                    <argument>install</argument>
+                  </arguments>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <nodeVersion>v${node.version}</nodeVersion>
-                            <npmVersion>${npm.version}</npmVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <!-- Optional configuration which provides for running any npm command -->
-                        <configuration>
-                            <arguments>install</arguments>
-                            <workingDirectory>dist/node</workingDirectory>
-                        </configuration>
-                    </execution>
-                    <!-- It will execute command "npm build" inside "/e2e-angular2" directory
-                    to clean and create "/dist" directory -->
-                    <execution>
-                        <id>npm build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Plugin to copy the content of /angular/dist/ directory to output
-            directory (ie/ /target/transactionManager-1.0/) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <!--<version>3.0.2</version>-->
-                <executions>
-                    <execution>
-                        <id>default-copy-resources</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <overwrite>true</overwrite>
-                            <!-- This folder is the folder where your angular files
-                            will be copied to. It must match the resulting war-file name.
-                            So if you have customized the name of war-file for ex. as "app.war"
-                            then below value should be ${project.build.directory}/app/
-                            Value given below is as per default war-file name -->
-                            <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <!--<directory>${project.basedir}/${angular.project.location}/dist</directory>-->
-                                    <directory>${basedir}/dist/myproject-web</directory>
-
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>exec-npm-lint</id>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <executable>dist/node/node/npm.cmd</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>lint</argument>
+                  </arguments>
+                </configuration>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>exec-npm-build</id>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <executable>dist/node/node/${script.extension}</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>build:${web.build.mode}</argument>
+                  </arguments>
+                </configuration>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
 
         </plugins>
