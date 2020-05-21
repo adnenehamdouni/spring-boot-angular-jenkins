@@ -6,35 +6,26 @@ pipeline {
 
     def mailRecipients = 'adnene.hamdouni@qugenx.com,adnene.hamdouni@gmail.com'
 
-    try {
-        stages {
+    stages {
 
-            // Clean workspace
-            stage('Clean workspace') {
-                deleteDir()
-            }
-            // Download source code
-            stage('Preparation') {
-                checkout scm
-            }
-
-            // Launch Maven
-            stage('Build') {
-                def common = load("${pwd()}/jenkinsfile-common")
-                common.mavenTask("clean install deploy")
-
-                // Tell Mailer that it's a success
-                currentBuild.result = 'SUCCESS'
-            }
+        // Clean workspace
+        stage('Clean workspace') {
+            deleteDir()
+        }
+        // Download source code
+        stage('Preparation') {
+            checkout scm
         }
 
+        // Launch Maven
+        stage('Build') {
+            def common = load("${pwd()}/jenkinsfile-common")
+            common.mavenTask("clean install deploy")
 
-    } catch(e) {
-        // Tell Mailer that something went wrong
-        currentBuild.result = 'FAILURE'
-        throw e
-    } finally {
-        // Send mail if task broke or is repaired
-        step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: mailRecipients, sendToIndividuals: true])
+            // Tell Mailer that it's a success
+            currentBuild.result = 'SUCCESS'
+        }
+
     }
+
 }
