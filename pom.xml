@@ -50,12 +50,12 @@
         <repository>
             <id>releases</id>
             <name>Nexus Releases</name>
-            <url>https://nexus.qugenx.com//nexus/content/repositories/releases</url>
+            <url>https://nexus.qugenx.com/repository/releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>Nexus Snapshots</name>
-            <url>https://nexus.qugenx.com//content/repositories/snapshots</url>
+            <url>https://nexus.qugenx.com/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -155,7 +155,7 @@
             </activation>
             <properties>
                 <spring.profiles.active>dev</spring.profiles.active>
-                <script.extension>npm.cmd</script.extension>
+                <script.extension>npm</script.extension>
                 <web.build.mode>dev</web.build.mode>
             </properties>
         </profile>
@@ -163,7 +163,7 @@
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
-                <script.extension>npm.cmd</script.extension>
+                <script.extension>npm</script.extension>
                 <web.build.mode>prod</web.build.mode>
             </properties>
         </profile>
@@ -171,7 +171,7 @@
             <id>test</id>
             <properties>
                 <spring.profiles.active>qa</spring.profiles.active>
-                <script.extension>npm.cmd</script.extension>
+                <script.extension>npm</script.extension>
                 <web.build.mode>qa</web.build.mode>
             </properties>
         </profile>
