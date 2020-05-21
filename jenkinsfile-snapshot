@@ -3,10 +3,7 @@
 // Use node dedicated to Java compilation
 pipeline {
     agent any
-    tools {
-        //jdk 'jdk8'
-        maven 'maven3'
-    }
+
     stages {
 
         // Clean workspace
@@ -39,9 +36,9 @@ pipeline {
 }
 
 def mavenTask(String command) {
-    def MAVEN_BUILD=tool 'Maven_3.0.4'
+    def MAVEN_BUILD=tool 'maven3'
     def JAVA_HOME=tool 'JDK_1.8.0_121'
-    def NODE_HOME=tool 'NodeJs_10.16.3'
+    def NODE_HOME=tool 'node'
 
     if (isUnix()) {
         sh "'${MAVEN_BUILD}/bin/mvn' -e -U -B -X  ${command}"
