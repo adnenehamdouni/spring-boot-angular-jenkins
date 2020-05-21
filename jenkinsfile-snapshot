@@ -6,6 +6,12 @@ pipeline {
 
     stages {
         // Clean workspace
+        stage('test maven installation') {
+            steps {
+                sh 'mvn -version'
+                sh 'which mvn'
+            }
+        }
         stage('Clean workspace') {
             steps {
                 deleteDir()
