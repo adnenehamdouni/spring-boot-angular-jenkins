@@ -35,53 +35,7 @@
             </executions>
           </plugin>
 
-          <!-- Install Node and npm, then run build project by specific profile (Dev/prod) -->
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.6</version>
-            <configuration>
-              <workingDirectory>.</workingDirectory>
-              <!-- where to install npm -->
-              <installDirectory>.</installDirectory>
-            </configuration>
-            <executions>
-              <execution>
-                <id>install node and npm</id>
-                <goals>
-                  <goal>install-node-and-npm</goal>
-                </goals>
-                <phase>generate-resources</phase>
-                <configuration>
-                  <nodeVersion>v${node.version}</nodeVersion>
-                  <npmVersion>${npm.version}</npmVersion>
-                </configuration>
-              </execution>
-              <execution>
-                <id>npm install</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <!-- Optional configuration which provides for running any npm command -->
-                <configuration>
-                  <arguments>install</arguments>
-                  <workingDirectory>./node</workingDirectory>
-                </configuration>
-              </execution>
-              <!-- It will execute command "npm build" inside "/e2e-angular2" directory
-              to clean and create "/dist" directory -->
-              <execution>
-                <id>npm build</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <configuration>
-                  <arguments>run build</arguments>
-                </configuration>
-              </execution>
 
-            </executions>
-          </plugin>
 
           <!-- -->
 
