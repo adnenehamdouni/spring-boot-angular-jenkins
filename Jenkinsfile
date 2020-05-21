@@ -37,6 +37,13 @@ pipeline {
                 }
             }
 
+            stage('archive artifacts') {
+                steps {
+                    echo 'Archiving..'
+                    archiveArtifacts 'spring-boot-angular-jenkins-rest/target/spring-boot-angular-jenkins-rest-*.war'
+                }
+            }
+
         }
 
 }
