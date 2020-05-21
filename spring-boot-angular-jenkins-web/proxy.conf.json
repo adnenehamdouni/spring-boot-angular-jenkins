@@ -1,0 +1,8 @@
+{
+  "/my-app/*": {
+    "target": "http://localhost:8091",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": { "^/my-app": "/my-app" }
+  }
+}

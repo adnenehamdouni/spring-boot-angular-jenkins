@@ -69,8 +69,14 @@
             "browserTarget": "myproject-web:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "myproject-web:build:dev"
+            },
             "production": {
               "browserTarget": "myproject-web:build:production"
+            },
+            "qa": {
+              "browserTarget": "myproject-web:build:qa"
             }
           }
         },
