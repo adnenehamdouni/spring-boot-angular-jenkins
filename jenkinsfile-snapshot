@@ -36,7 +36,7 @@ pipeline {
 
 def mavenTask(String command) {
     def MAVEN_BUILD=tool 'maven3'
-    def JAVA_HOME=tool 'JDK_1.8.0_121'
+    //def JAVA_HOME=tool 'JDK_1.8.0_121'
     def NODE_HOME=tool 'node'
 
     if (isUnix()) {
