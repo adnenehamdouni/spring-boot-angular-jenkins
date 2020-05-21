@@ -33,10 +33,6 @@
         <maven.source.plugin-version>2.2.1</maven.source.plugin-version>
     </properties>
 
-    <prerequisites>
-        <maven>3.5.4</maven>
-    </prerequisites>
-
     <scm>
         <connection>scm:git:https://github.com/adnenehamdouni/spring-boot-angular-jenkins.git</connection>
         <developerConnection>scm:git:https://github.com/adnenehamdouni/spring-boot-angular-jenkins.git</developerConnection>
