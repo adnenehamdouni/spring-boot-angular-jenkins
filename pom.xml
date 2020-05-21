@@ -25,7 +25,29 @@
 
         <node.version>12.16.2</node.version>
         <npm.version>6.14.4</npm.version>
+
+        <maven.compiler.plugin-version>3.5</maven.compiler.plugin-version>
+        <maven.release.plugin-version>2.5.3</maven.release.plugin-version>
+        <maven.javadoc.plugin-version>2.9.1</maven.javadoc.plugin-version>
+        <maven.deploy.plugin-version>2.8.1</maven.deploy.plugin-version>
+        <maven.source.plugin-version>2.2.1</maven.source.plugin-version>
     </properties>
+
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
+
+    <scm>
+        <connection>scm:git:http://bitbucket/scm/d1/d1-auto-ma.git</connection>
+        <developerConnection>scm:git:http://bitbucket/scm/d1/d1-auto-ma.git</developerConnection>
+        <url>scm:git:http://bitbucket/scm/d1/d1-auto-ma.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://jenkins/jenkins</url>
+    </ciManagement>
 
     <dependencies>
         <dependency>
@@ -61,6 +83,49 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven.deploy.plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven.source.plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven.release.plugin-version}</version>
+                    <inherited>false</inherited>
+                    <configuration>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <releaseProfiles>deliver,prod</releaseProfiles>
+                        <preparationGoals>clean install</preparationGoals>
+                        <goals>deploy -Pprod</goals>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <tagNameFormat>${project.artifactId}-@{project.version}</tagNameFormat>
+
+                        <checkModificationExcludes>
+                            <checkModificationExclude>**\app\bower_components</checkModificationExclude>
+                            <checkModificationExclude>**\app\styles</checkModificationExclude>
+                            <checkModificationExclude>**\app\views</checkModificationExclude>
+                            <checkModificationExclude>**\app\scripts</checkModificationExclude>
+                            <checkModificationExclude>**\app\images</checkModificationExclude>
+                            <checkModificationExclude>**\app\launcher.html</checkModificationExclude>
+                            <checkModificationExclude>**\app\index.html</checkModificationExclude>
+                        </checkModificationExcludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
     </build>
 
