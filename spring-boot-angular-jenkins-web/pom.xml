@@ -65,7 +65,7 @@
                 <!-- Optional configuration which provides for running any npm command -->
                 <configuration>
                   <arguments>install</arguments>
-                  <workingDirectory>.</workingDirectory>
+                  <workingDirectory>./tmp</workingDirectory>
                 </configuration>
               </execution>
               <!-- It will execute command "npm build" inside "/e2e-angular2" directory
