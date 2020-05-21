@@ -4,8 +4,6 @@
 pipeline {
     agent any
 
-    def mailRecipients = 'adnene.hamdouni@qugenx.com,adnene.hamdouni@gmail.com'
-
     stages {
 
         // Clean workspace
