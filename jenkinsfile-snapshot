@@ -1,28 +1,33 @@
 #!/usr/bin/env groovy
 
 // Use node dedicated to Java compilation
-node('SlaveJava') {
+pipeline {
+    agent any
 
     def mailRecipients = 'adnene.hamdouni@qugenx.com,adnene.hamdouni@gmail.com'
 
     try {
-        // Clean workspace
-        stage('Clean workspace') {
-            deleteDir()
-        }
-        // Download source code
-        stage('Preparation') {
-          checkout scm
+        stages {
+
+            // Clean workspace
+            stage('Clean workspace') {
+                deleteDir()
+            }
+            // Download source code
+            stage('Preparation') {
+                checkout scm
+            }
+
+            // Launch Maven
+            stage('Build') {
+                def common = load("${pwd()}/jenkinsfile-common")
+                common.mavenTask("clean install deploy")
+
+                // Tell Mailer that it's a success
+                currentBuild.result = 'SUCCESS'
+            }
         }
 
-        // Launch Maven
-        stage('Build') {
-            def common = load("${pwd()}/jenkinsfile-common")
-            common.mavenTask("clean install deploy")
-
-            // Tell Mailer that it's a success
-            currentBuild.result = 'SUCCESS'
-        }
 
     } catch(e) {
         // Tell Mailer that something went wrong
