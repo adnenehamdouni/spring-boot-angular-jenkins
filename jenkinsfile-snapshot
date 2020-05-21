@@ -25,15 +25,29 @@ pipeline {
         // Launch Maven
         stage('Build') {
             steps {
-                def common = load("${pwd()}/jenkinsfile-common")
-                common.mavenTask("clean install deploy")
+                mavenTask("clean install deploy")
 
                 // Tell Mailer that it's a success
-                currentBuild.result = 'SUCCESS'
+
             }
 
         }
 
     }
 
+}
+
+def mavenTask(String command) {
+    def MAVEN_BUILD=tool 'Maven_3.0.4'
+    def JAVA_HOME=tool 'JDK_1.8.0_121'
+    def NODE_HOME=tool 'NodeJs_10.16.3'
+
+    if (isUnix()) {
+        sh "'${MAVEN_BUILD}/bin/mvn' -e -U -B -X  ${command}"
+    } else {
+        withEnv(["JAVA_HOME=${JAVA_HOME}",
+                 "PATH=${NODE_HOME};${env.PATH};${WORKSPACE}/spring-boot-angular-jenkins-web/node-modules/.bin"]) {
+            bat (/"${MAVEN_BUILD}\bin\mvn.bat" -e -U -B ${command}/)
+        }
+    }
 }
