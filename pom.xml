@@ -38,15 +38,15 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:git:http://bitbucket/scm/d1/d1-auto-ma.git</connection>
-        <developerConnection>scm:git:http://bitbucket/scm/d1/d1-auto-ma.git</developerConnection>
-        <url>scm:git:http://bitbucket/scm/d1/d1-auto-ma.git</url>
+        <connection>scm:git:https://github.com/adnenehamdouni/spring-boot-angular-jenkins.git</connection>
+        <developerConnection>scm:git:https://github.com/adnenehamdouni/spring-boot-angular-jenkins.git</developerConnection>
+        <url>scm:git:https://github.com/adnenehamdouni/spring-boot-angular-jenkins.git</url>
         <tag>HEAD</tag>
     </scm>
 
     <ciManagement>
         <system>Jenkins</system>
-        <url>http://jenkins/jenkins</url>
+        <url>https://jenkins.qugenx.com</url>
     </ciManagement>
 
     <dependencies>

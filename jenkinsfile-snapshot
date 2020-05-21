@@ -10,20 +10,28 @@ pipeline {
 
         // Clean workspace
         stage('Clean workspace') {
-            deleteDir()
+            steps {
+                deleteDir()
+            }
+
         }
         // Download source code
         stage('Preparation') {
-            checkout scm
+            steps {
+                checkout scm
+            }
         }
 
         // Launch Maven
         stage('Build') {
-            def common = load("${pwd()}/jenkinsfile-common")
-            common.mavenTask("clean install deploy")
+            steps {
+                def common = load("${pwd()}/jenkinsfile-common")
+                common.mavenTask("clean install deploy")
 
-            // Tell Mailer that it's a success
-            currentBuild.result = 'SUCCESS'
+                // Tell Mailer that it's a success
+                currentBuild.result = 'SUCCESS'
+            }
+
         }
 
     }
