@@ -3,20 +3,30 @@
 // Use node dedicated to Java compilation
 pipeline {
     agent any
-    tools {
+    /*tools {
         //jdk 'jdk8'
         maven 'maven3'
-    }
+    }*/Ò
     stages {
         // Clean workspace
+
+        stage('test java installation') {
+            steps {
+                echo 'Checking Java Version..'
+                sh 'java -version'
+                sh 'which java'
+            }
+        }
         stage('test maven installation') {
             steps {
+                echo 'Checking Maven Version..'
                 sh 'mvn -version'
                 sh 'which mvn'
             }
         }
         stage('Clean workspace') {
             steps {
+                println("deleteDir")
                 deleteDir()
             }
 
@@ -24,6 +34,7 @@ pipeline {
         // Download source code
         stage('Preparation') {
             steps {
+                println("checkout scm")
                 checkout scm
             }
         }
@@ -31,6 +42,7 @@ pipeline {
         // Launch Maven
         stage('Build') {
             steps {
+                println("Running Build")
                 mavenTask("clean install")
 
                 // Tell Mailer that it's a success
