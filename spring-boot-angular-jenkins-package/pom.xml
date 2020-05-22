@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jenkins</artifactId>
+        <groupId>com.qugenx</groupId>
+        <version>0.0.01-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-boot-angular-jenkins-package</artifactId>
+
+    <packaging>ear</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <systeme.applicatif>Q1</systeme.applicatif>
+        <nom.application>SPRING ANGULAR TEST</nom.application>
+    </properties>
+
+    <dependencies>
+        <!--<dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>spring-boot-angular-jenkins-business</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>spring-boot-angular-jenkins-rest</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+        </dependency>
+
+    </dependencies>
+
+
+
+
+    <build>
+        <finalName>${project.parent.artifactId}-${project.version}</finalName>
+
+        <plugins>
+
+            <!-- Packaging .zip -->
+            <!--<plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-bundles</id>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${artifactId}/src/main/packaging/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+
+            <!-- DESCRIPTION du build maven pour la génération de l'ear -->
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <version>1.4</version>
+                    <!-- Nom de l'EAR dans la console WAS -->
+                    <displayName>spring-boot-angular-jenkins</displayName>
+                    <modules>
+                        <webModule>
+                            <groupId>${project.parent.groupId}</groupId>
+                            <artifactId>spring-boot-angular-jenkins-rest</artifactId>
+                            <bundleFileName>spring-boot-angular-jenkins.war</bundleFileName>
+                            <!-- Nom du WAR dans l'EAR -->
+                            <contextRoot>/spring-boot-angular-jenkins</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+</project>
