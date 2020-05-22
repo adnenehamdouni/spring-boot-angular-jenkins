@@ -3,6 +3,7 @@
 // Use node dedicated to Java compilation
 pipeline {
     agent any
+
     tools {
         //jdk 'jdk8'
         maven 'maven3'
@@ -40,32 +41,21 @@ pipeline {
         }
 
         // Launch Maven
+
         stage('Build') {
             steps {
                 println("Running Build")
-                mavenTask("clean install")
+                def rootDir = pwd()
+                def common = load "${rootDir}/jenkinsfile-common"
+                common.exampleMethod()
+                example.mavenTask("clean install")
 
                 // Tell Mailer that it's a success
-
             }
-
         }
 
     }
 
 }
 
-def mavenTask(String command) {
-    def MAVEN_BUILD=tool 'maven3'
-    def NODE_HOME=tool 'node'
 
-    println("Running with command: " + command)
-    if (isUnix()) {
-        sh "'${MAVEN_BUILD}/bin/mvn' -e -U -B -X  ${command}"
-    } else {
-        withEnv(["JAVA_HOME=${JAVA_HOME}",
-                 "PATH=${NODE_HOME};${env.PATH};${WORKSPACE}/spring-boot-angular-jenkins-web/node-modules/.bin"]) {
-            bat (/"${MAVEN_BUILD}\bin\mvn.bat" -e -U -B ${command}/)
-        }
-    }
-}
