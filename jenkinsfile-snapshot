@@ -45,7 +45,7 @@ pipeline {
         stage('Build') {
 
             steps {
-                build("clean install")
+                mavenTask("clean install deploy")
 
                 // Tell Mailer that it's a success
             }
@@ -55,7 +55,7 @@ pipeline {
 
 }
 
-def build(String command) {
+def mavenTask(String command) {
     def rootDir = pwd()
     def common = load "${rootDir}/jenkinsfile-common"
     println("Running Build")
