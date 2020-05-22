@@ -57,10 +57,10 @@ pipeline {
 
 def mavenTask(String command) {
     def MAVEN_BUILD=tool 'maven3'
-    def JAVA_HOME=tool 'JDK_1.8.0_212'
     def NODE_HOME=tool 'node'
 
     if (isUnix()) {
+        println("Running with command: " + command)
         sh "'${MAVEN_BUILD}/bin/mvn' -e -U -B -X  ${command}"
     } else {
         withEnv(["JAVA_HOME=${JAVA_HOME}",
