@@ -59,8 +59,8 @@ def mavenTask(String command) {
     def MAVEN_BUILD=tool 'maven3'
     def NODE_HOME=tool 'node'
 
+    println("Running with command: " + command)
     if (isUnix()) {
-        println("Running with command: " + command)
         sh "'${MAVEN_BUILD}/bin/mvn' -e -U -B -X  ${command}"
     } else {
         withEnv(["JAVA_HOME=${JAVA_HOME}",
