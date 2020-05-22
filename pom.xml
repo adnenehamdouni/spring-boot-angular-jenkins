@@ -10,19 +10,21 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <groupId>com.qugenx</groupId>
+    <artifactId>jenkins</artifactId>
+    <version>0.0.01-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <name>spring-boot-angular-jenkins</name>
+    <description>Demo project for Spring Boot</description>
+
     <modules>
         <module>spring-boot-angular-jenkins-web</module>
         <module>spring-boot-angular-jenkins-business</module>
         <module>spring-boot-angular-jenkins-rest</module>
         <module>spring-boot-angular-jenkins-package</module>
     </modules>
-
-    <groupId>com.qugenx</groupId>
-    <artifactId>jenkins</artifactId>
-    <version>0.0.01-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>spring-boot-angular-jenkins</name>
-    <description>Demo project for Spring Boot</description>
 
     <!--<url>https://nexus.qugenx.com/</url>-->
     <properties>
@@ -55,15 +57,23 @@
             <id>releases</id>
             <name>Nexus Releases</name>
             <url>https://nexus.qugenx.com/repository/releases/</url>
+            <!--<url>https://nexus.qugenx.com/content/repositories/releases</url>-->
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>Nexus Snapshots</name>
             <url>https://nexus.qugenx.com/repository/snapshots/</url>
+            <!--<url>https://nexus.qugenx.com/content/repositories/snapshots</url>-->
         </snapshotRepository>
     </distributionManagement>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-groovy-templates</artifactId>
@@ -99,6 +109,9 @@
     <build>
         <pluginManagement>
             <plugins>
+
+
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -108,6 +121,35 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven.deploy.plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>default-deploy</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>deploy</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.5.1</version>
+                    <executions>
+                        <execution>
+                            <id>default-deploy</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>deploy</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <serverId>nexus</serverId>
+                        <nexusUrl>https://nexus.qugenx.com</nexusUrl>
+                        <skipStaging>true</skipStaging>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
