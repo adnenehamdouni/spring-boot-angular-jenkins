@@ -47,8 +47,7 @@ pipeline {
                 println("Running Build")
                 def rootDir = pwd()
                 def common = load "${rootDir}/jenkinsfile-common"
-                common.exampleMethod()
-                example.mavenTask("clean install")
+                common.mavenTask("clean install")
 
                 // Tell Mailer that it's a success
             }
