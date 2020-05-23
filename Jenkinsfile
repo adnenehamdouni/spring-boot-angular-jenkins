@@ -2,7 +2,7 @@ pipeline {
         agent any
         tools {
                 //jdk 'jdk8'
-                node 'nodejs'
+                nodejs 'node'
                 maven 'maven3'
         }
         stages {
